@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: brainstorming_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-2005}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d brainstorming_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-2005}@db:5432/brainstorming_db
+      SECRET_KEY: ${SECRET_KEY:-b7a3c9e2-4f8d-4a1b-9c6e-2d5f8a3b7c9e}
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 1440
+      FRONTEND_URL: http://localhost:5174
+      GMAIL_EMAIL: ${GMAIL_EMAIL:-}
+      GMAIL_PASSWORD: ${GMAIL_PASSWORD:-}
+      SMTP_SERVER: smtp.gmail.com
+      SMTP_PORT: 587
+      INVITATION_TOKEN_EXPIRE_DAYS: 7
+      LLM_PROVIDER: ${LLM_PROVIDER:-}
+      GROK_API_KEY: ${GROK_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OLLAMA_BASE_URL: http://localhost:11434
+      OLLAMA_MODEL: llama3.2:3b
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  uploads:
