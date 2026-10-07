@@ -124,9 +124,7 @@ npm run test:run
 
 | Referentiel | Application |
 |---|---|
-| COBIT 2019 | Alignement strategie SI (APO02, APO04) |
 | ISO 27001 | Gestion des acces, RBAC, chiffrement bcrypt |
-| EBIOS RM | Matrice de risques 5x5, evaluations |
 | RGPD | Registre des traitements (Art. 30), AuditLog |
 | OWASP Top 10 | Rate limiting, validation entrees, JWT |
 | Scrum | 4 sprints, cycles iteratifs |
