@@ -101,11 +101,10 @@ synkhub/
 - **Dashboard** : Vue d'ensemble des workspaces et boards
 - **Board Collaboratif** : Post-its temps reel avec drag & drop
 - **Decision Hub** : Vote, commentaires, suivi des arbitrages
-- **Risk Register** : Matrice 5x5, plans d'action, conformite EBIOS RM
+- **Risk Register** : Matrice 5x5, plans d'action
 - **Synthese IA** : Resume automatique des reunions (Groq/Gemini)
 - **Generation PDF** : Rapports avec charte graphique
 - **Gestion des equipes** : Invitations email, RBAC 2 niveaux
-- **Registre RGPD** : Conforme a l'article 30
 - **Parametres** : Profil, avatar, mot de passe, suppression compte
 
 ## Tests
@@ -120,14 +119,7 @@ cd frontend
 npm run test:run
 ```
 
-## Conformite et Gouvernance
 
-| Referentiel | Application |
-|---|---|
-| ISO 27001 | Gestion des acces, RBAC, chiffrement bcrypt |
-| RGPD | Registre des traitements (Art. 30), AuditLog |
-| OWASP Top 10 | Rate limiting, validation entrees, JWT |
-| Scrum | 4 sprints, cycles iteratifs |
 
 ## Auteur
 
